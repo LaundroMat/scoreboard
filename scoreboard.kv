@@ -1,0 +1,170 @@
+#:kivy 1.9.1
+
+
+
+
+<Timer>:
+    id: timer_widget
+    size_hint: 1, 0.2
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: timer_box
+            text:   '00:00:00'
+            color: 1,0,0,1
+            font_size:  '60sp'
+            font_name:   "bold_dot_digital-7.ttf"
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                size_hint: 0.2, 0.2
+                text: "+1 second"
+            Button:
+                size_hint: 0.2, 0.2
+                text: "-1 second"
+
+<CurrentFight>:
+    size_hint: 1, 0.6
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: contender
+                    text:   ''
+                    font_size:  '60sp'
+                    size_hint: 1,3.0
+                    canvas.before:
+                        Color:
+                            rgba: (1,1,1,0.33)
+                        BorderImage:
+                            source: 'fighter1.png'
+                            pos: self.pos
+                            size: self.size
+                BoxLayout:
+                    size_hint:  1, 0.3
+                    orientation: 'horizontal'
+                    Button:
+                        on_press:   root.parent.parent.parent.add_point_for_challenger()
+                        text:   '+'
+                    Button:
+                        on_press:   root.parent.parent.parent.substract_point_for_challenger()
+                        text:   '-'
+                    Button:
+                        on_press:   root.parent.parent.parent.move_challenger_back_to_queue()
+                        text:   'Back to queue'
+
+            Label:
+                id: versus
+                text:   'VS'
+                font_size:  '50sp'
+                size_hint:  0.3,1.0
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: king
+                    font_size:  '60sp'
+                    size_hint: 1, 3.0
+                    canvas.before:
+                        Color:
+                            rgba: (1,1,1,0.33)
+                        BorderImage:
+                            source: 'crown2.jpg'
+                            pos: self.pos
+                            size: self.size
+
+                BoxLayout:
+                    size_hint:  1, 0.3
+                    orientation: 'horizontal'
+                    Button:
+                        on_press:   root.parent.parent.parent.add_point_for_king()
+                        text:   '+'
+                    Button:
+                        on_press:   root.parent.parent.parent.substract_point_for_king()
+                        text:   '-'
+                    Button:
+                        on_press:   root.parent.parent.move_king_to_queue()
+                        text:   'Move to queue'
+
+
+
+<RankingHeader>:
+    size_hint: 1.0, 0.1
+    Label:
+        text:   'Ranking'
+        font_size:  '60sp'
+        text_size: self.size
+        halign: 'left'
+
+
+<RankingLine>:
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            id: position
+            text_size: self.size
+            size_hint: 0.2, 1.0
+        Label:
+            text_size: self.size
+            id: name
+            halign: 'left'
+        Label:
+            id: score
+            text_size: self.size
+            size_hint: 0.2, 1.0
+
+<RankingBody>:
+    BoxLayout:
+        id: ranking_body
+        orientation: 'vertical'
+
+<Ranking>:
+    BoxLayout:
+        orientation: 'vertical'
+        RankingHeader:
+            id: ranking_header
+        RankingBody:
+            id: ranking_body
+
+
+<NextUp>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            size_hint:  1.0,.10
+            text_size: self.size
+            valign: 'top'
+            text: "Upcoming challengers:"
+            font_size:  '30sp'
+        BoxLayout:
+            orientation: 'vertical'
+            id: next_up_body
+
+<NextUpLine>:
+    Label:
+        id: name
+        text_size: self.size
+        halign: 'left'
+
+<Root>:
+    id: root_layout
+    BoxLayout:
+        orientation: 'horizontal'
+        Ranking:
+            id: ranking
+            size_hint: 0.3, 1.0
+        BoxLayout:
+            orientation: 'vertical'
+            CurrentFight:
+                id: current_fight
+            BoxLayout:
+                orientation: 'horizontal'
+                NextUp:
+                    id: next_up
+            Timer:
+                id: timer
+
